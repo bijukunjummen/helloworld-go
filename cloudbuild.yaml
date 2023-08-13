@@ -13,7 +13,7 @@ steps:
     args:
       - -c
       - |
-        ko build .
+        ko build main
     env:
       - "KO_DOCKER_REPO=$LOCATION-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME"
 
