@@ -11,7 +11,7 @@ steps:
   - name: 'cgr.dev/chainguard/ko:latest'
     entrypoint: /bin/bash
     args:
-      - -c
+      - -x
       - |
         go mod download
         ko build main.go
