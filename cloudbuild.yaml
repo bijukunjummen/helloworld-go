@@ -9,7 +9,11 @@ steps:
 
   # Docker Build
   - name: 'cgr.dev/chainguard/ko:latest'
-    args: ['build', '.', "--tags", "$SHORT_SHA,latest"]
+    entrypoint: /bin/bash
+    args:
+      - -c
+      - |
+        ko build .
     env:
       - "KO_DOCKER_REPO=$LOCATION-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME"
 
