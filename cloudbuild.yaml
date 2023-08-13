@@ -9,14 +9,13 @@ steps:
 
   # Docker Build
   - name: 'cgr.dev/chainguard/ko:latest'
-    args: ['build', '.']
+    args: ['build', '.', "--tags", "$SHORT_SHA,latest"]
     env:
       - "KO_DOCKER_REPO=$LOCATION-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME"
 
 # Store images in Google Artifact Registry
 images:
-  - $LOCATION-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/myimage:$SHORT_SHA
-
+  - $LOCATION-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME:$SHORT_SHA
 
 substitutions:
   _REPO_NAME: sample-repo
