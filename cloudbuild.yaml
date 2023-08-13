@@ -1,0 +1,22 @@
+steps:
+  # Run tests and save to file
+  - name: 'cgr.dev/chainguard/go:1.20'
+    entrypoint: /bin/bash
+    args:
+      - -c
+      - |
+        go test -timeout 1m -v ./...
+
+  # Docker Build
+  - name: 'cgr.dev/chainguard/ko:latest'
+    args: ['build', '.']
+    env:
+      - "KO_DOCKER_REPO=$LOCATION-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME"
+
+# Store images in Google Artifact Registry
+images:
+  - $LOCATION-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/myimage:$SHORT_SHA
+
+
+substitutions:
+  _REPO_NAME: sample-repo

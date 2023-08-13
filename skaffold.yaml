@@ -1,0 +1,19 @@
+apiVersion: skaffold/v3alpha1
+kind: Config
+metadata:
+  name: helloworld-go
+manifests:
+  rawYaml:
+  - kubernetes/hello-deployment.yaml
+  - kubernetes/hello-service.yaml
+
+build:
+  artifacts:
+  - image: helloworld-go-image
+    ko:  { }
+#    buildpacks:
+#      builder: gcr.io/buildpacks/builder:v1
+#      env:
+#        - "GOOGLE_RUNTIME_VERSION=17"
+deploy:
+  kubectl: { }

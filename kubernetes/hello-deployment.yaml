@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helloworld-go-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: helloworld-go
+  template:
+    metadata:
+      labels:
+        app: helloworld-go
+    spec:
+      containers:
+        - name: helloworld-go
+          image: helloworld-go-image
+          ports:
+            - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            failureThreshold: 10
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 30
+            failureThreshold: 10
