@@ -8,20 +8,23 @@ steps:
         go test -timeout 1m -v ./...
 
   # Build Image
-  - name: 'cgr.dev/chainguard/ko:latest'
-    entrypoint: /bin/bash
-    args:
-      - -c
-      - |
-        set -x
-        go mod download
-        ko build main.go
-    env:
-      - "KO_DOCKER_REPO=$LOCATION-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME"
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t',
+           '$LOCATION-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/helloworld-go:$SHORT_SHA', '.']
+#  - name: 'cgr.dev/chainguard/ko:latest'
+#    entrypoint: /bin/bash
+#    args:
+#      - -c
+#      - |
+#        set -x
+#        go mod download
+#        ko build main.go
+#    env:
+#      - "KO_DOCKER_REPO=$LOCATION-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME"
 
 # Store images in Google Artifact Registry
 images:
-  - $LOCATION-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME:$SHORT_SHA
+  - $LOCATION-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/helloworld-go:$SHORT_SHA
 
 substitutions:
   _REPO_NAME: sample-repo
