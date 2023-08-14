@@ -23,7 +23,7 @@ func TestHealthEndpoint(t *testing.T) {
 	b, _ := io.ReadAll(resp.Body)
 	var healthContent types.Health
 	json.Unmarshal(b, &healthContent)
-	if !(healthContent.Status == "UP") {
+	if healthContent.Status != "UP" {
 		t.Errorf("Status is not %v", healthContent.Status)
 	}
 }

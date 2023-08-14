@@ -18,9 +18,9 @@ func TestHelloWorldEndpoint(t *testing.T) {
 
 	b, _ := io.ReadAll(resp.Body)
 	var content types.Message
-	json.Unmarshal(b, content)
+	json.Unmarshal(b, &content)
 
-	if !(content.Payload != "Hello World") {
-		t.Errorf("Bad Response content: %v", content)
+	if content.Payload != "Hello World" {
+		t.Errorf("Bad Response content: %+v", content)
 	}
 }

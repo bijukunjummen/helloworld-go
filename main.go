@@ -10,8 +10,8 @@ import (
 
 func appRouter() *mux.Router {
 	r := mux.NewRouter()
-	r.Handle("/", routes.HelloWorldHandler{}).Methods("GET")
-	r.Handle("/health", routes.HealthHandler{}).Methods("GET")
+	r.Handle("/greetings", routes.HelloWorldHandler{}).Methods("GET")
+	r.Handle("/greetings/health", routes.HealthHandler{}).Methods("GET")
 	return r
 }
 
