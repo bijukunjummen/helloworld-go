@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: helloworld-go-deployment
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: helloworld-go
@@ -19,14 +19,14 @@ spec:
             - containerPort: 8080
           livenessProbe:
             httpGet:
-              path: /health
+              path: /greetings/health
               port: 8080
             initialDelaySeconds: 30
             periodSeconds: 10
             failureThreshold: 10
           readinessProbe:
             httpGet:
-              path: /health
+              path: /greetings/health
               port: 8080
             initialDelaySeconds: 30
             failureThreshold: 10

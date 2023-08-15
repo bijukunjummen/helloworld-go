@@ -1,0 +1,15 @@
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: helloworld-go-healthcheck
+spec:
+  default:
+    config:
+      type: HTTP
+      httpHealthCheck:
+        port: 8080
+        requestPath: /greetings/health
+  targetRef:
+    group: ""
+    kind: Service
+    name: helloworld-go-service
